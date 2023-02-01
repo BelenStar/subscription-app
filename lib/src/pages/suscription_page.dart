@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class SubscriptionPage extends StatefulWidget {
+  const SubscriptionPage({super.key});
 
   
-
-  final String title;
-
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+   createState() => _SubscriptionPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _SubscriptionPageState extends State<SubscriptionPage> {
 
   void _incrementCounter() {
     setState(() {
-      
-      _counter++;
     });
   }
 
@@ -27,28 +21,27 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         
-        title: Text(widget.title),
+        leading: const Icon(Icons.subscriptions),
+        title: const Text('Your subscriptions'),
+        //actions: [],
       ),
-      body: Center(
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body:Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: ListTile(
+              leading: const Icon(Icons.library_music_sharp),
+              title: const Text('Spotify'),
+              trailing: const Text("\$2.5"),
+              subtitle: const Text('per month') ,
+              tileColor: Colors.blueAccent,
+              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.5))),
+         //  ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /* floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),  */
     );
+   // );
   }
 }
