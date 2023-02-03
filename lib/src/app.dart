@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:suscription_payment/src/pages/new_subscription_page.dart';
 import 'package:suscription_payment/src/pages/suscription_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,12 +7,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home:  Center(
+    return MaterialApp(
+      home: const Center(
         child: SubscriptionPage(),
       ),
+      routes: <String, WidgetBuilder>{
+        '/subscriptions': (context) => const SubscriptionPage(),
+        '/add_subscription': (context) => NewSubscriptionPage(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
