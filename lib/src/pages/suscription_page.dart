@@ -3,45 +3,119 @@ import 'package:flutter/material.dart';
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});
 
-  
   @override
-   createState() => _SubscriptionPageState();
+  createState() => _SubscriptionPageState();
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
-
-  void _incrementCounter() {
-    setState(() {
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
+      //backgroundColor: Color(0xff42C2FF),
       appBar: AppBar(
-        
-        leading: const Icon(Icons.subscriptions),
-        title: const Text('Your subscriptions'),
-        //actions: [],
+        leading: const Icon(
+          Icons.subscriptions,
+          color: Colors.black38,
+        ),
+        title: const Text(
+          'Your subscriptions',
+          style: TextStyle(color: Colors.black38, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  {Navigator.pushNamed(context, '/add_subscription')},
+              icon: const Icon(
+                Icons.add_circle,
+                color: Colors.black38,
+              ))
+        ],
+
+        //backgroundColor: Color.fromARGB(255, 179, 184, 183),
+        backgroundColor: Colors.white,
       ),
-      body:Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: ListTile(
-              leading: const Icon(Icons.library_music_sharp),
-              title: const Text('Spotify'),
-              trailing: const Text("\$2.5"),
-              subtitle: const Text('per month') ,
-              tileColor: Colors.blueAccent,
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.5))),
-         //  ),
+      body: Column(
+        children: [
+          Container(
+              padding: const EdgeInsets.only(top: 10),
+              height: MediaQuery.of(context).size.height * 0.79,
+              //width: MediaQuery.of(context).size.widt * 0.,
+              child: ListView.builder(
+                  itemCount: 9,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Material(
+                        //color: Color(0xffB8FFF9),
+                        color: Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        elevation: 15,
+                        shadowColor: Colors.black,
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.library_music_sharp,
+                            size: 40,
+                          ),
+                          title: const Text(
+                            'Spotify',
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          trailing: const Text(
+                            "\$ 2.5",
+                            style: TextStyle(
+                                color: Colors.black38,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: const Text(
+                            'music',
+                            style: TextStyle(color: Colors.black38),
+                          ),
+                          //tileColor: Color(0xffB8FFF9),
+                          tileColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.5)),
+                        ),
+                      ),
+                    );
+                  })),
+          Container(
+            //color: Colors.amber,
+            width: 400,
+            //height: 135,
+            height: MediaQuery.of(context).size.height * 0.10,
+            child: const ListTile(
+                leading: Icon(
+                  Icons.monetization_on,
+                  size: 40,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  'All Expenses',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                trailing: Text(
+                  "\$ 42.5",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'Per month',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                //tileColor: Color(0xffB8FFF9),
+                tileColor: Colors.black54,
+                shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)))),
+          )
+        ],
       ),
-      /* floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),  */
     );
-   // );
   }
 }
