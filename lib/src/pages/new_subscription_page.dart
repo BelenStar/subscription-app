@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:suscription_payment/src/classes/subscription_item.dart';
+import 'package:suscription_payment/src/models/subscription_item.dart';
 import 'package:suscription_payment/src/lists/subs_types_list.dart';
+import 'package:suscription_payment/src/styles/styles.dart';
+import 'package:provider/provider.dart';
+import 'package:suscription_payment/src/provider/new_subscription_provider.dart';
 
 class NewSubscriptionPage extends StatefulWidget {
   const NewSubscriptionPage({super.key});
@@ -10,14 +13,15 @@ class NewSubscriptionPage extends StatefulWidget {
 }
 
 class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
-  final List<SubscriptionItem> _subsItems = [];
+  late String category = dropdownServicesTypes[0];
 
-  TextEditingController name = TextEditingController();
-  TextEditingController type = TextEditingController();
-  TextEditingController price = TextEditingController();
+  TextEditingController service = TextEditingController();
+  TextEditingController amount = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final subscriptions = context.watch<SubscriptionProvider>().subscriptions;
+
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.subscriptions),
@@ -29,44 +33,47 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
             padding: const EdgeInsets.all(10.0),
             children: [
               TextField(
-                controller: name,
+                controller: service,
                 keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                    labelText: 'Service',
-                    hintText: 'spotify, netflix...',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black38),
-                      borderRadius: BorderRadius.all(Radius.circular(15.5)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.all(Radius.circular(15.5)),
-                    )),
+                decoration: ThemeStyle.nameFormField,
               ),
-              const SizedBox(height: 4),
-              DropdownButton(
-                  items: dropdownServicesTypes
-                      .map((e) => DropdownMenuItem(child: Text(e), value: e))
-                      .toList(),
-                  value: dropdownServicesTypes,
-                  onChanged: (val) {}),
+              const SizedBox(height: 15),
+              DropdownButtonFormField(
+                items: dropdownServicesTypes
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                value: category,
+                onChanged: (val) {
+                  setState(() {
+                    category = val as String;
+                  });
+                },
+                decoration: ThemeStyle.typeFormField,
+              ),
+              const SizedBox(height: 15),
               TextField(
-                controller: type,
-                //keyboardType: Tex,
-                decoration: const InputDecoration(
-                  labelText: 'Category',
-                  hintText: 'music, streaming...',
-                ),
+                controller: amount,
+                keyboardType: TextInputType.number,
+                decoration: ThemeStyle.priceFormField,
               ),
-              const SizedBox(height: 4),
-              TextField(
-                controller: price,
-                decoration: const InputDecoration(
-                  labelText: 'Price',
-                  hintText: 'monthly payment',
-                ),
-              ),
-              ElevatedButton(onPressed: () {}, child: Text('Add'))
+              ElevatedButton(
+                  onPressed: () => {
+                        setState(() {
+                          service.text.isEmpty && amount.text.isEmpty
+                              ? null
+                              : subscriptions.add(SubscriptionItem(
+                                  name: service.text,
+                                  price: int.parse(amount.text)));
+                          service.clear();
+                          amount.clear();
+
+                          Navigator.pushNamed(context, '/subscriptions');
+                        })
+                      },
+                  child: const Text('Add')),
             ],
           ),
         ),

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         '/subscriptions': (context) => const SubscriptionPage(),
-        '/add_subscription': (context) => NewSubscriptionPage(),
+        '/add_subscription': (context) => const NewSubscriptionPage(),
       },
       debugShowCheckedModeBanner: false,
     );

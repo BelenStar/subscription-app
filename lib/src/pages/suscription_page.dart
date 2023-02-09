@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:suscription_payment/src/styles/styles.dart';
+import 'package:provider/provider.dart';
+import 'package:suscription_payment/src/provider/new_subscription_provider.dart';
 
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});
@@ -10,6 +13,10 @@ class SubscriptionPage extends StatefulWidget {
 class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
+    //final subscriptions = context.watch<SubscriptionProvider>().subscriptions;
+    final subscriptions =
+        Provider.of<SubscriptionProvider>(context).subscriptions;
+
     return Scaffold(
       //backgroundColor: Color(0xff42C2FF),
       appBar: AppBar(
@@ -41,7 +48,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               height: MediaQuery.of(context).size.height * 0.79,
               //width: MediaQuery.of(context).size.widt * 0.,
               child: ListView.builder(
-                  itemCount: 9,
+                  itemCount: subscriptions.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
@@ -58,23 +65,18 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             Icons.library_music_sharp,
                             size: 40,
                           ),
-                          title: const Text(
-                            'Spotify',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold),
+                          title: Text(
+                            subscriptions[index].name,
+                            style: ThemeStyle.subscriptionTitle,
                           ),
-                          trailing: const Text(
-                            "\$ 2.5",
-                            style: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.bold),
+                          trailing: Text(
+                            '\$ ${subscriptions[index].price}',
+                            style: ThemeStyle.subscriptionTrailing,
                           ),
                           subtitle: const Text(
                             'music',
-                            style: TextStyle(color: Colors.black38),
+                            style: ThemeStyle.subscriptionSubtitle,
                           ),
-                          //tileColor: Color(0xffB8FFF9),
                           tileColor: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.5)),
