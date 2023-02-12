@@ -12,4 +12,9 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   List<SubscriptionItem> get subscriptions => _subsItems;
+
+  void removeSubscription(SubscriptionItem subscription) {
+    _subsItems.remove(subscription);
+    notifyListeners();
+  }
 }
