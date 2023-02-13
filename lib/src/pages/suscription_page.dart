@@ -17,8 +17,18 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     final subscriptions =
         Provider.of<SubscriptionProvider>(context).subscriptions;
 
+    int totalAmount = 0;
+
+    void totalExpenses() {
+      for (int i = 0; i < subscriptions.length; i++) {
+        setState(() {
+          totalAmount += subscriptions[i].price;
+        });
+      }
+    }
+
+    totalExpenses();
     return Scaffold(
-      //backgroundColor: Color(0xff42C2FF),
       appBar: AppBar(
         leading: const Icon(
           Icons.subscriptions,
@@ -37,24 +47,22 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 color: Colors.black38,
               ))
         ],
-
-        //backgroundColor: Color.fromARGB(255, 179, 184, 183),
         backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
           Container(
               padding: const EdgeInsets.only(top: 10),
-              height: MediaQuery.of(context).size.height * 0.79,
+              height: MediaQuery.of(context).size.height * 0.76,
               //width: MediaQuery.of(context).size.widt * 0.,
               child: ListView.builder(
                   itemCount: subscriptions.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final currentSubscription = subscriptions[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       child: Material(
-                        //color: Color(0xffB8FFF9),
                         color: Colors.white,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
@@ -80,38 +88,56 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           tileColor: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.5)),
+                          onLongPress: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SimpleDialog(
+                                    children: [
+                                      SimpleDialogOption(
+                                        child: const Text('Delete'),
+                                        onPressed: () {
+                                          context
+                                              .read<SubscriptionProvider>()
+                                              .removeSubscription(
+                                                  currentSubscription);
+
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          },
                         ),
                       ),
                     );
                   })),
-          Container(
-            //color: Colors.amber,
+          SizedBox(
             width: 400,
-            //height: 135,
             height: MediaQuery.of(context).size.height * 0.10,
-            child: const ListTile(
-                leading: Icon(
+            child: ListTile(
+                leading: const Icon(
                   Icons.monetization_on,
                   size: 40,
                   color: Colors.white,
                 ),
-                title: Text(
+                title: const Text(
                   'All Expenses',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 trailing: Text(
-                  "\$ 42.5",
-                  style: TextStyle(
+                  '$totalAmount',
+                  style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   'Per month',
                   style: TextStyle(color: Colors.white70),
                 ),
-                //tileColor: Color(0xffB8FFF9),
                 tileColor: Colors.black54,
-                shape: ContinuousRectangleBorder(
+                shape: const ContinuousRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30)))),
