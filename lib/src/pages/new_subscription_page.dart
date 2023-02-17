@@ -24,14 +24,22 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.subscriptions),
-        title: const Text('New Subscription'),
+        leading: const Icon(
+          Icons.subscriptions,
+          color: Colors.black38,
+        ),
+        title: const Text(
+          'New Subscription',
+          style: TextStyle(color: Colors.black38, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Form(
           child: ListView(
             padding: const EdgeInsets.all(10.0),
             children: [
+              const SizedBox(height: 10),
               TextField(
                 controller: service,
                 keyboardType: TextInputType.name,
@@ -60,6 +68,9 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                 decoration: ThemeStyle.priceFormField,
               ),
               ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black38),
+                  ),
                   onPressed: () => {
                         setState(() {
                           service.text.isEmpty && amount.text.isEmpty
