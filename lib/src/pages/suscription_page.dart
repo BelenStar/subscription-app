@@ -53,7 +53,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         children: [
           Container(
               padding: const EdgeInsets.only(top: 10),
-              height: MediaQuery.of(context).size.height * 0.76,
+              height: MediaQuery.of(context).size.height * 0.767,
               //width: MediaQuery.of(context).size.widt * 0.,
               child: ListView.builder(
                   itemCount: subscriptions.length,
