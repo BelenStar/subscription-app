@@ -81,8 +81,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             '\$ ${subscriptions[index].price}',
                             style: ThemeStyle.subscriptionTrailing,
                           ),
-                          subtitle: const Text(
-                            'music',
+                          subtitle: Text(
+                            subscriptions[index].type,
                             style: ThemeStyle.subscriptionSubtitle,
                           ),
                           tileColor: Colors.white,
