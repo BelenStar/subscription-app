@@ -17,6 +17,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
 
   TextEditingController service = TextEditingController();
   TextEditingController amount = TextEditingController();
+  TextEditingController serviceType = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +58,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                 onChanged: (val) {
                   setState(() {
                     category = val as String;
+                    serviceType.text = category;
                   });
                 },
                 decoration: ThemeStyle.typeFormField,
@@ -77,11 +79,13 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                               ? null
                               : subscriptions.add(SubscriptionItem(
                                   name: service.text,
+                                  type: serviceType.text,
                                   price: int.parse(amount.text)));
                           /* context
                                   .read<SubscriptionProvider>()
                                   .addSubscription(SubscriptionItem(
                                       name: service.text,
+                                      type: serviceType.text,
                                       price: int.parse(amount.text))); */
                           service.clear();
                           amount.clear();
