@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:suscription_payment/src/styles/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:suscription_payment/src/provider/new_subscription_provider.dart';
+import 'package:suscription_payment/src/lists/icons_subs_types.dart';
 
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});
@@ -17,17 +18,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     final subscriptions =
         Provider.of<SubscriptionProvider>(context).subscriptions;
 
-    int totalAmount = 0;
+    final subscriptionProvider = Provider.of<SubscriptionProvider>(context);
 
-    void totalExpenses() {
-      for (int i = 0; i < subscriptions.length; i++) {
-        setState(() {
-          totalAmount += subscriptions[i].price;
-        });
-      }
-    }
-
-    totalExpenses();
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(
@@ -45,6 +37,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               icon: const Icon(
                 Icons.add_circle,
                 color: Colors.black38,
+                size: 30,
               ))
         ],
         backgroundColor: Colors.white,
@@ -69,10 +62,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                         elevation: 15,
                         shadowColor: Colors.black,
                         child: ListTile(
-                          leading: const Icon(
-                            Icons.library_music_sharp,
-                            size: 40,
-                          ),
+                          leading: showIcon(subscriptions[index].type),
                           title: Text(
                             subscriptions[index].name,
                             style: ThemeStyle.subscriptionTitle,
@@ -128,7 +118,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 trailing: Text(
-                  '$totalAmount',
+                  '${subscriptionProvider.getTotal}',
                   style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
