@@ -13,11 +13,10 @@ class NewSubscriptionPage extends StatefulWidget {
 }
 
 class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
-  late String category = dropdownServicesTypes[0];
-
   TextEditingController service = TextEditingController();
   TextEditingController amount = TextEditingController();
-  TextEditingController serviceType = TextEditingController();
+  TextEditingController serviceType =
+      TextEditingController(text: dropdownServicesTypes[0]);
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +53,10 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                           child: Text(e),
                         ))
                     .toList(),
-                value: category,
+                value: serviceType.text,
                 onChanged: (val) {
                   setState(() {
-                    category = val as String;
-                    serviceType.text = category;
+                    serviceType.text = val.toString();
                   });
                 },
                 decoration: ThemeStyle.typeFormField,
