@@ -17,4 +17,14 @@ class SubscriptionProvider extends ChangeNotifier {
     _subsItems.remove(subscription);
     notifyListeners();
   }
+
+  int get getTotal {
+    int totalAmount = 0;
+
+    for (int i = 0; i < _subsItems.length; i++) {
+      totalAmount += _subsItems[i].price;
+    }
+
+    return totalAmount;
+  }
 }
