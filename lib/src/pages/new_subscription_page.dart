@@ -78,7 +78,7 @@ class _NewSubscriptionPageState extends State<NewSubscriptionPage> {
                               : subscriptions.add(SubscriptionItem(
                                   name: service.text,
                                   type: serviceType.text,
-                                  price: int.parse(amount.text)));
+                                  price: double.parse(amount.text)));
                           /* context
                                   .read<SubscriptionProvider>()
                                   .addSubscription(SubscriptionItem(
