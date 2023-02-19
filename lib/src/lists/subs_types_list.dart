@@ -8,4 +8,5 @@ List dropdownServicesTypes = [
   'Car Services',
   'Work',
   'Phone Services',
+  'Music'
 ];
